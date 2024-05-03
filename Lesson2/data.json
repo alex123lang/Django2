@@ -1,0 +1,70 @@
+[
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name": "Apple",
+      "description": null,
+      "photo": "",
+      "category": 2,
+      "price": null,
+      "created_at": "2024-05-03T14:47:36.092Z",
+      "updated_at": "2024-05-03T14:47:36.092Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Orange",
+      "description": null,
+      "photo": "",
+      "category": 2,
+      "price": null,
+      "created_at": "2024-05-03T14:48:07.018Z",
+      "updated_at": "2024-05-03T14:48:07.018Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Cucumber",
+      "description": null,
+      "photo": "",
+      "category": 1,
+      "price": null,
+      "created_at": "2024-05-03T14:48:22.522Z",
+      "updated_at": "2024-05-03T14:48:22.522Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Carrot",
+      "description": null,
+      "photo": "",
+      "category": 1,
+      "price": null,
+      "created_at": "2024-05-03T14:48:33.189Z",
+      "updated_at": "2024-05-03T14:48:33.189Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Vegetables",
+      "description": "Vegetables description"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Fruits",
+      "description": "Fruits description"
+    }
+  }
+]
