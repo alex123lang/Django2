@@ -1,0 +1,23 @@
+{% extends 'catalog/home.html' %}
+{% load media_tags %}
+{% block content %}
+<div class="container">
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <img src="{{ product.photo | my_media }}" >
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
+                    <p class="card-text">{{ product.description }}</p>
+                    <img src="{{ product.image.url }}" ">
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    <a href="{% url 'home' %}" class="btn btn-lg btn-block btn-outline-primary">Назад</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
