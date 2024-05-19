@@ -32,3 +32,21 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BlogPost(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)
+    content = models.TextField()
+    preview = models.ImageField(upload_to='previews/')
+    created_at = models.DateTimeField(auto_now_add=True)
+    published = models.BooleanField(default=False)
+    views = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
+        ordering = ['created_at']
+
+    def __str__(self):
+        return self.title

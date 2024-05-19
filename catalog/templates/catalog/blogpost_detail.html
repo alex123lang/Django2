@@ -1,0 +1,28 @@
+{% extends "catalog/blogpost_list.html" %}
+
+{% load media_tags %}
+
+{% block content %}
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+            <div class="col">
+                <div class="card shadow-sm">
+                    {% if product.image %}
+                    <img src="{{ object.preview | my_media }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="card-text">Название: {{ object.title }} ({{ object.slug }})</p>
+                        <p class="card-text">Дата создания: {{ object.created_at }}</p>
+                        <p class="card-text">{{ object.content }}</p>
+                        <a class="btn btn-primary" href="{% url 'catalog:blogpost_list' %}" role="button">Назад</a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    Просмотры: {{ object.views }}
+                </div>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
