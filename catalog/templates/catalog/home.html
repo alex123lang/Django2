@@ -28,13 +28,16 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <p>
-                    <a href="{% url 'catalog:blogpost_create' %}" class="btn btn-primary my-2">Создать</a>
+                    <a href="{% url 'catalog:blogpost_create' %}" class="btn btn-primary my-2">Создать блог</a>
                     <a href="{% url 'catalog:blogpost_list' %}" class="btn btn-primary my-2">Блоги</a>
+                </p>
+                <p>
+                    <a href="{% url 'catalog:product_create' %}" class="btn btn-primary my-2">Создать Продукт</a>
+                    <a href="{% url 'catalog:home' %}" class="btn btn-primary my-2">Продукты</a>
                 </p>
             </div>
         </div>
     </section>
-
 
     {% block content %}
     {% endblock %}
@@ -42,8 +45,6 @@
 </main>
 
 {% include 'catalog/includes/inc_bottom.html' %}
-
-<main
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>

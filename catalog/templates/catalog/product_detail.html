@@ -1,23 +1,52 @@
 {% extends 'catalog/home.html' %}
 {% load media_tags %}
 {% block content %}
-<div class="container">
-    <div class="row text-center">
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
-                <img src="{{ product.photo | my_media }}" >
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">${{ object.price }}</h1>
-                    <p class="card-text">{{ object.description }}</p>
-                    <img src="{{ product.image.url }}" ">
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                    <a href="/" class="btn btn-lg btn-block btn-outline-primary">Назад</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<table class="table" >
+    <thead>
+    <tr>
+        <th scope="col">{{ object.name|title }}</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row"></th>
+        <td><img class="img-fluid" width="20%" src="{{ object.photo|my_media }}"></td>
+
+    </tr>
+    <tr>
+        <th scope="row">Описание:</th>
+        <td>{{ object.description }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Категория:</th>
+        <td colspan="2">{{ object.category|title }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Цена:</th>
+        <td colspan="2">{{ object.price }} руб.</td>
+    </tr>
+    <tr>
+        <th scope="row">Дата создания:</th>
+        <td colspan="2">{{ object.created_at }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Дата последнего изменения:</th>
+        <td colspan="2">{{ object.updated_at }}</td>
+    </tr>
+    <tr>
+        <th scope="row">Версия:</th>
+        {% for version_item in product.version_set.all %}
+        {% if version_item.is_active == True %}
+            <td colspan="2">{{ version_item.version_num}}</td>
+            <td class="table-success" colspan="2"> активна </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+<a href="{% url 'catalog:product_update' object.pk %}" type="button"
+   class="p-2 btn btn-outline-primary">Редактировать</a>
+<a href="{% url 'catalog:product_delete' object.pk %}" type="button"
+   class="p-2 btn btn-outline-danger">Удалить</a>
 {% endblock %}

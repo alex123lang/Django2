@@ -1,21 +1,38 @@
 {% extends 'catalog/home.html' %}
 {% block content %}
+
 <div class="container">
     <div class="row text-center">
-        {% for product in object_list %}
+        {% for prod in page_obj %}
         <div class="col-3">
-            <div class="card mb-4 box-shadow">
+            <div class="card h-100 mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+                    <h4 class="my-0 font-weight-normal">{{ prod|title }}</h4>
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
-                    <p class="card-text">{{ product.description | slice:"100" }}</p>
-                    <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-lg btn-block btn-outline-primary">Подробнее</a>
+                    <h1 class="card-title pricing-card-title">{{ prod.price }} руб.</h1>
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ prod.description|truncatechars:100 }}</li>
+                    </ul>
+                    {% for version_item in product.version_set.all %}
+                    <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                        <li>{{ version_item.version_num }}</li>
+                    </ul>
+                    {% endfor %}
+                    <a href="{% url 'catalog:product_detail' prod.pk %}" type="button"
+                       class="p-2 btn btn-outline-primary">Открыть</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+<br />
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% for p in page_obj.paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="?page= {{ p }}">{{ p }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
 {% endblock %}

@@ -50,3 +50,17 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт')
+    version_num = models.IntegerField(default=0, verbose_name='Номер версии')
+    version_name = models.CharField(max_length=150, verbose_name='Название версии')
+    is_active = models.BooleanField(default=True, verbose_name='Активно')
+
+    def __str__(self):
+        return f'{self.is_active}'
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
