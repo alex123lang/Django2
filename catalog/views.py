@@ -35,10 +35,11 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
-        try:
-            version = Version.objects.get(product=product, is_active=True)
-        except Version.DoesNotExist:
-            version = None
+        versions = Version.objects.filter(product=product, is_active=True)
+
+        # You can decide how to handle multiple versions here
+        # For example, you might want to select the first one:
+        version = versions.first() if versions.exists() else None
 
         context['version'] = version
         return context
