@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
@@ -10,7 +11,7 @@ from catalog.models import Product, BlogPost, Version
 # Create your views here.
 
 
-class ProductListView(ListView):
+class ProductListView(ListView, LoginRequiredMixin):
     model = Product
     extra_context = {
         'title': 'Главная страница'
@@ -26,7 +27,7 @@ class ProductContactView(TemplateView):
     template_name = 'catalog/contact.html'
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(DetailView, LoginRequiredMixin):
     model = Product
     extra_context = {
         'title': 'О продукте'
@@ -45,7 +46,7 @@ class ProductDetailView(DetailView):
         return context
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(CreateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
@@ -56,15 +57,20 @@ class ProductCreateView(CreateView):
         context_data['formset'] = VersionFormset()
         return context_data
 
-    def form_valid(self, form):
+    """def form_valid(self, form):
         formset = self.get_context_data()['formset']
         if formset.is_valid():
             formset.instance = self.object
             formset.save()
+        return super().form_valid(form)"""
+
+    def form_valid(self, form):
+        w = form.save(commit=False)
+        w.author = self.request.user
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(UpdateView, LoginRequiredMixin):
     model = Product
     form_class = ProductForm
 
@@ -89,9 +95,10 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(DeleteView, LoginRequiredMixin):
     model = Product
     success_url = reverse_lazy('catalog:home')
+
 
 class BlogPostListView(ListView):
     model = BlogPost
