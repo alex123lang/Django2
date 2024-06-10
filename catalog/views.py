@@ -11,7 +11,7 @@ from catalog.models import Product, BlogPost, Version
 # Create your views here.
 
 
-class ProductListView(ListView, LoginRequiredMixin):
+class ProductListView(ListView):
     model = Product
     extra_context = {
         'title': 'Главная страница'
@@ -27,7 +27,7 @@ class ProductContactView(TemplateView):
     template_name = 'catalog/contact.html'
 
 
-class ProductDetailView(DetailView, LoginRequiredMixin):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     extra_context = {
         'title': 'О продукте'
@@ -46,7 +46,7 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
         return context
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:home')
@@ -70,7 +70,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
 
@@ -95,7 +95,7 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView, LoginRequiredMixin):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:home')
 
