@@ -45,8 +45,10 @@
     </tr>
     </tbody>
 </table>
+{% if perms.catalog.unpublish_a_product and perms.catalog.change_description_product and perms.catalog.change_category_product or user == object.owner%}
 <a href="{% url 'catalog:product_update' object.pk %}" type="button"
    class="p-2 btn btn-outline-primary">Редактировать</a>
 <a href="{% url 'catalog:product_delete' object.pk %}" type="button"
    class="p-2 btn btn-outline-danger">Удалить</a>
+{% endif %}
 {% endblock %}

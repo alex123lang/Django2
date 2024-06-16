@@ -150,7 +150,7 @@ LOGIN_URL = 'users:login'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "ruzilkasymov@yandex.ru"
-EMAIL_HOST_PASSWORD = "bwhqgbsnsnzulygr"
+EMAIL_HOST_PASSWORD = ""
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 

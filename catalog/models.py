@@ -15,10 +15,21 @@ class Product(models.Model):
 
     author = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, related_name='products', **NULLABLE)
 
+    is_published = models.BooleanField(
+        verbose_name="Публикация",
+        help_text="Укажите статус публикации",
+        default=True,
+        **NULLABLE)
+
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['name', 'price', 'created_at', 'updated_at']
+        permissions = [
+            ('unpublish_a_product', 'Unpublish a product'),
+            ('change_description_product,', 'Change description product'),
+            ('change_category_product', 'Change category product')
+        ]
 
     def __str__(self):
         return self.name
