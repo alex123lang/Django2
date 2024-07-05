@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, BlogPost, Version
+from catalog.service import get_product_from_cache
 
 
 # Create your views here.
@@ -21,6 +22,9 @@ class ProductListView(ListView):
 
     def get_paginate_by(self, queryset):
         return self.request.GET.get('paginate_by', self.paginate_by)
+
+    def get_queryset(self):
+        return get_product_from_cache()
 
 
 class ProductContactView(TemplateView):
@@ -49,7 +53,6 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         product = super().get_object(queryset)
         if self.request.user == product.author:
-            product.views += 1
             product.save()
             return product
         raise PermissionDenied
